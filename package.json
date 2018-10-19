@@ -1,0 +1,10 @@
+{
+  "name": "escli",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jean Rigotti <gmgotti@protonmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "elasticsearch": "^15.1.1"
+  }
+}

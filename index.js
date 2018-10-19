@@ -3,6 +3,10 @@
 const program = require('commander');
 const client = require('./client.js')();
 
-program.version('0,0,1').parse(process.argv);
-
-client.info();
+program
+    .version('0.0.1')
+    .arguments('[args...]')
+    .action((args) => {
+        eval('client.' + args.join('.') + "()");
+    })
+    .parse(process.argv);

@@ -5,6 +5,7 @@
   "author": "Jean Rigotti <gmgotti@protonmail.com>",
   "license": "MIT",
   "dependencies": {
+    "commander": "^2.19.0",
     "elasticsearch": "^15.1.1"
   },
   "scripts": {

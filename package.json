@@ -10,5 +10,6 @@
   },
   "scripts": {
     "repl": "node ./repl.js"
-  }
+  },
+  "bin": "./index.js"
 }

@@ -2,11 +2,21 @@
 
 const program = require('commander');
 const client = require('./client.js')();
+const editor = require('./editor.js');
 
 program
     .version('0.0.1', '-v --version')
-    .arguments('[args...]')
+    .option('-e, --editor', 'Use your editor to write the parameters of the request')
+    .arguments('[commands...]')
     .action((args) => {
-        eval('client.' + args.join('.') + "()");
+        let evalStr = `client.${args.join('.')}`;
+
+        if (program.editor) {
+            editor().then((res) => {
+                eval(`${evalStr}(res)`);
+            });
+        } else {
+            eval(`${evalStr}()`);
+        }
     })
     .parse(process.argv);

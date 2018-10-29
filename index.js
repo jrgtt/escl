@@ -23,15 +23,26 @@ program
     .option('-f, --file <path>', 'JS or JSON file to be used as request', loadValidFile)
     .arguments('[commands...]')
     .action((args) => {
-        let evalStr = `client.${args.join('.')}`;
+        let namespace, cmd, index;
+
+        if (args.length >= 2) {
+            // the format if three arguments are passed
+            [namespace, cmd, index] = args;
+        } else {
+            // or only two or less, index can be null
+            [cmd, index] = args;
+        }
+
+        // apply namespace if provided
+        const fn = namespace ? client[namespace][cmd] : client[cmd];
 
         if (program.editor) {
             editor().then((res) => {
-                eval(`${evalStr}(res)`);
+                fn.call(client, res);
             });
         } else {
             const res = program.file || {};
-            eval(`${evalStr}(res)`);
+            fn.call(client, res);
         }
     })
     .parse(process.argv);

@@ -4,7 +4,7 @@ const program = require('commander');
 const client = require('./client.js')();
 const editor = require('./editor.js');
 
-const loadValidFile = (filePath) => {
+const validateFilePath = (filePath) => {
     const path = require('path');
 
     if (
@@ -14,13 +14,13 @@ const loadValidFile = (filePath) => {
         throw new Error(`${filePath} is not a valid request file`);
     }
 
-    return require(path.resolve(filePath));
+    return path.resolve(filePath);
 };
 
 program
     .version('0.0.1', '-v --version')
     .option('-e, --editor', 'Use your editor to write the parameters of the request')
-    .option('-f, --file <path>', 'JS or JSON file to be used as request', loadValidFile)
+    .option('-f, --file <path>', 'JS or JSON file to be used as body request', validateFilePath)
     .arguments('[commands...]')
     .action((args) => {
         let namespace, cmd, index;

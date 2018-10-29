@@ -37,7 +37,7 @@ program
         const fn = namespace ? client[namespace][cmd] : client[cmd];
 
         if (program.editor) {
-            editor().then((res) => {
+            editor(program.file || null).then((res) => {
                 fn.call(client, res);
             });
         } else {

@@ -4,7 +4,7 @@ const program = require('commander');
 const client = require('./client.js')();
 const editor = require('./editor.js');
 
-const { validFilePath, validList } = require('./utils/validation.js');
+const { validFilePath, validListOrString } = require('./utils/validation.js');
 
 program
     .version('0.0.1', '-v --version')
@@ -20,7 +20,7 @@ program
     .option(
         '--index <index>',
         'Index or list of indices to operate on.',
-        validList
+        validListOrString
     )
     .arguments('<namespaceOrCmd> [cmd]')
     .action((namespaceOrCmd, cmd) => {

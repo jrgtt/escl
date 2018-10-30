@@ -1,4 +1,4 @@
-module.exports.validFilePath = (filePath) => {
+const validFilePath = (filePath) => {
     const path = require('path');
     const fs = require('fs');
 
@@ -12,4 +12,15 @@ module.exports.validFilePath = (filePath) => {
     return path.resolve(filePath);
 };
 
-module.exports.validList = (indices) => indices.split(/,/).map((s) => s.trim());
+const validList = (values) => values.split(/,/).map((s) => s.trim());
+
+// same as validList, but will return a string if list has only one element
+const validListOrString = (values) => {
+    values = validList(values);
+    return values.length === 1 ? values[0] : values;
+};
+
+module.exports.validFilePath = validFilePath;
+module.exports.validList = validList;
+module.exports.validListOrString = validListOrString;
+

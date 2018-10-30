@@ -4,19 +4,7 @@ const program = require('commander');
 const client = require('./client.js')();
 const editor = require('./editor.js');
 
-const validateFilePath = (filePath) => {
-    const path = require('path');
-    const fs = require('fs');
-
-    if (
-        !fs.statSync(filePath).isFile() ||
-        !['.js', '.json'].includes(path.extname(filePath))
-    ) {
-        throw new Error(`${filePath} is not a valid request file`);
-    }
-
-    return path.resolve(filePath);
-};
+const { validFilePath, validList } = require('./utils/validation.js');
 
 program
     .version('0.0.1', '-v --version')
@@ -27,7 +15,12 @@ program
     .option(
         '-f, --file <path>',
         'JS or JSON file to be used as body request',
-        validateFilePath
+        validFilePath
+    )
+    .option(
+        '--index <index>',
+        'Index or list of indices to operate on.',
+        validList
     )
     .arguments('<namespaceOrCmd> [cmd]')
     .action((namespaceOrCmd, cmd) => {
@@ -39,7 +32,13 @@ program
                 fn.call(client, res);
             });
         } else {
-            const res = program.file || {};
+            let res = program.file ? require(program.file) : {};
+            if (program.index) {
+                res = {
+                    ...res,
+                    index: program.index,
+                };
+            }
             fn.call(client, res);
         }
     })

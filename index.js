@@ -29,20 +29,10 @@ program
         'JS or JSON file to be used as body request',
         validateFilePath
     )
-    .arguments('[commands...]')
-    .action((args) => {
-        let namespace, cmd, index;
-
-        if (args.length >= 2) {
-            // the format if three arguments are passed
-            [namespace, cmd, index] = args;
-        } else {
-            // or only two or less, index can be null
-            [cmd, index] = args;
-        }
-
+    .arguments('<namespaceOrCmd> [cmd]')
+    .action((namespaceOrCmd, cmd) => {
         // apply namespace if provided
-        const fn = namespace ? client[namespace][cmd] : client[cmd];
+        const fn = cmd ? client[namespaceOrCmd][cmd] : client[namespaceOrCmd];
 
         if (program.editor) {
             editor(program.file || null).then((res) => {

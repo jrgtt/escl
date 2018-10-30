@@ -16,6 +16,6 @@ const configuration = require('cosmiconfig')('escli');
  * In doubt check the documentation:
  * https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html
  **/
-const escliConfig  = configuration.searchSync() || { config: { client: {} } };
+const escliConfig = configuration.searchSync() || { config: { client: {} } };
 
 module.exports = () => new Client(escliConfig.config.client);

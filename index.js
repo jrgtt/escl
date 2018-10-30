@@ -6,10 +6,11 @@ const editor = require('./editor.js');
 
 const validateFilePath = (filePath) => {
     const path = require('path');
+    const fs = require('fs');
 
     if (
-        !require('fs').statSync(filePath).isFile()
-        || !['.js', '.json'].includes(path.extname(filePath))
+        !fs.statSync(filePath).isFile() ||
+        !['.js', '.json'].includes(path.extname(filePath))
     ) {
         throw new Error(`${filePath} is not a valid request file`);
     }
@@ -19,8 +20,15 @@ const validateFilePath = (filePath) => {
 
 program
     .version('0.0.1', '-v --version')
-    .option('-e, --editor', 'Use your editor to write the parameters of the request')
-    .option('-f, --file <path>', 'JS or JSON file to be used as body request', validateFilePath)
+    .option(
+        '-e, --editor',
+        'Use your editor to write the parameters of the request'
+    )
+    .option(
+        '-f, --file <path>',
+        'JS or JSON file to be used as body request',
+        validateFilePath
+    )
     .arguments('[commands...]')
     .action((args) => {
         let namespace, cmd, index;

@@ -27,6 +27,10 @@ program
         'File to be used as body parameter',
         validFilePath
     )
+    .option(
+        '--q <query>',
+        'Query in the Lucene query string syntax '
+    )
     .arguments('<namespaceOrCmd> [cmd]')
     .action((namespaceOrCmd, cmd) => {
         // apply namespace if provided
@@ -41,6 +45,7 @@ program
             res = {
                 ...res,
                 ...program.index && { index: program.index },
+                ...program.q && { q: program.q },
                 ...program.body && { body: require(program.body) },
             };
             fn.call(client, res);

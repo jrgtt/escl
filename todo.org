@@ -1,5 +1,0 @@
-* Improvements
-
-** Accept AWS params in case no client is passed I guess
-
-** Client should be able to passed by the user.

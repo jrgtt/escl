@@ -19,8 +19,13 @@ program
     )
     .option(
         '--index <index>',
-        'Index or list of indices to operate on.',
+        'Index or list of indices to operate on',
         validListOrString
+    )
+    .option(
+        '--body <path>',
+        'File to be used as body parameter',
+        validFilePath
     )
     .arguments('<namespaceOrCmd> [cmd]')
     .action((namespaceOrCmd, cmd) => {
@@ -33,12 +38,11 @@ program
             });
         } else {
             let res = program.file ? require(program.file) : {};
-            if (program.index) {
-                res = {
-                    ...res,
-                    index: program.index,
-                };
-            }
+            res = {
+                ...res,
+                ...program.index && { index: program.index },
+                ...program.body && { body: require(program.body) },
+            };
             fn.call(client, res);
         }
     })

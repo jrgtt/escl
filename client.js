@@ -1,6 +1,16 @@
 const { Client } = require('elasticsearch');
 const configuration = require('cosmiconfig')('escli');
 
+// Configuration to fallback in case of no configuration file provided
+const defaultConfig = {
+    config: {
+        client: {
+            host: 'http://localhost:9200',
+            log: 'trace'
+        }
+    }
+};
+
 /**
  * The aim of this project is not to help you build an elasticsearch
  * client connection.  Hence I assume that the information and custom
@@ -16,6 +26,6 @@ const configuration = require('cosmiconfig')('escli');
  * In doubt check the documentation:
  * https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/configuration.html
  **/
-const escliConfig = configuration.searchSync() || { config: { client: {} } };
+const escliConfig = configuration.searchSync() || defaultConfig;
 
 module.exports = () => new Client(escliConfig.config.client);

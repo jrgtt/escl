@@ -38,6 +38,14 @@ const {
     ...options
 } = argv;
 
+// remove these options from the params
+delete options.e;
+delete options.editor;
+delete options.b;
+delete options.body;
+delete options.f;
+delete options.file;
+
 // the elasticsearch client
 const client = require('./client.js')();
 

@@ -27,7 +27,18 @@ const argv = yargs
       .help()
       .argv;
 
-const { _: [namespaceOrCmd, cmd] } = argv;
+const {
+    // location of the script (not used)
+    '$0': _binPath,
+
+    // extract commands that come in `_` key
+    _: [namespaceOrCmd, cmd],
+
+    // rest of the options passed
+    ...options
+} = argv;
+
+// the elasticsearch client
 const client = require('./client.js')();
 
 // TODO: throw some error if namespace not found
@@ -38,12 +49,13 @@ if (argv.editor) {
         fn.call(client, res);
     });
 } else {
+    // use file as full parameter (if provided)
     let res = argv.file ? require(argv.file) : {};
+
     res = {
         ...res,
-        ...argv.index && { index: argv.index },
-        ...argv.q && { q: argv.q },
         ...argv.body && { body: require(argv.body) },
+        ...options
     };
     fn.call(client, res);
 }

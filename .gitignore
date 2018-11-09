@@ -7,6 +7,8 @@ yarn-error.log*
 
 # yep
 .env
+.tern-port
+.#*
 
 # Runtime data
 pids

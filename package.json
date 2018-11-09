@@ -12,5 +12,12 @@
   "scripts": {
     "repl": "node ./repl.js"
   },
-  "bin": "./index.js"
+  "engines": {
+    "node": ">=10.12.0"
+  },
+  "bin": "./index.js",
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-plugin-node": "^8.0.0"
+  }
 }

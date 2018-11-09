@@ -38,11 +38,16 @@ module.exports = (filepath, template = '_default') => {
         [ filepath, afterEdit ] = generateFallbackFile(template);
     }
 
-    return new Promise((resolve, reject) => {
-        spawn(editor, [filepath || fallbackFile], {
-            stdio: 'inherit'
-        }).on('exit', (e, code) => {
-            resolve(require(filepath));
+    return new Promise((resolve) => {
+        spawn(editor, [filepath], { stdio: 'inherit' }).on('exit', (e) => {
+            if (e) throw e;
+
+            try {
+                resolve(require(filepath));
+            } catch (fe) {
+                throw fe;
+            }
+
             afterEdit();
         });
     });

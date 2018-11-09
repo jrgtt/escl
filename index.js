@@ -3,7 +3,7 @@
 const yargs = require('yargs');
 const editor = require('./editor.js');
 
-const { validFilePath, validListOrString } = require('./utils/validation.js');
+const { validFilePath } = require('./utils/validation.js');
 
 const argv = yargs
       .command('$0', 'Refer to elasticsearch documentation to check which methods you can use')
@@ -28,8 +28,8 @@ const argv = yargs
       .argv;
 
 const {
-    // location of the script (not used)
-    '$0': _binPath,
+    // eslint-disable-next-line
+    '$0': _binPath, // location of the script (not used)
 
     // extract commands that come in `_` key
     _: [namespaceOrCmd, cmd],

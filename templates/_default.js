@@ -7,12 +7,14 @@ let code = "module.exports = {}";
 // parse
 const ast = recast.parse(code);
 
-// create new property
-const newProperty = builder.objectProperty(
-    builder.identifier('index'),
-    builder.literal('<% indexValue %>')
-);
+module.exports = (inheritOptions = {}) => {
+    // add cli options to object tree
+    Object.keys(inheritOptions).forEach((k) => {
+        ast.program.body[0].expression.right.properties.push(builder.objectProperty(
+            builder.identifier(k),
+            builder.literal(inheritOptions[k])
+        ));
+    });
 
-ast.program.body[0].expression.right.properties.push(newProperty);
-
-module.exports = recast.prettyPrint(ast).code;
+    return recast.prettyPrint(ast).code;
+};

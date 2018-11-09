@@ -52,7 +52,7 @@ const client = require('./client.js')();
 const fn = cmd ? client[namespaceOrCmd][cmd] : client[namespaceOrCmd];
 
 if (argv.editor) {
-    editor(argv.file || null).then((res) => {
+    editor(argv.file || null, options).then((res) => {
         fn.call(client, res);
     });
 } else {

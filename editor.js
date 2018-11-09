@@ -1,18 +1,18 @@
 const { spawn } = require('child_process');
 const editor = process.env.EDITOR || 'vi';
 
-const generateFallbackFile = (template) => {
+const generateFallbackFile = () => {
     const fs = require('fs');
     const path = require('path');
 
-    // templates are simply js files
-    const templateFile = path.join(__dirname, 'templates', `${template}.js`);
+    // templates are js parsed strings
+    const templateString = require('./templates/_default.js');
 
     // generate a random file name
     const generatedFile = path.join('/tmp', `${Math.random().toString(36).substring(7)}.js`);
 
     // like copy, but node doesn't complain about it
-    fs.writeFileSync(generatedFile, fs.readFileSync(templateFile));
+    fs.writeFileSync(generatedFile, templateString);
 
     return [
         // send the path of the new file
@@ -30,12 +30,12 @@ const generateFallbackFile = (template) => {
  * @param {String} template will look for templates for the requisition
  * @returns {Promise} will give back to the contents of the file
  */
-module.exports = (filepath, template = '_default') => {
+module.exports = (filepath) => {
     let afterEdit = () => {}; // noop function
 
     // if no file is provided generate one from templates
     if (!filepath) {
-        [ filepath, afterEdit ] = generateFallbackFile(template);
+        [ filepath, afterEdit ] = generateFallbackFile();
     }
 
     return new Promise((resolve) => {

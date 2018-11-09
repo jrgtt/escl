@@ -1,4 +1,4 @@
-const validFilePath = (filePath) => {
+const validFilepath = (filePath) => {
     const path = require('path');
     const fs = require('fs');
 
@@ -20,7 +20,23 @@ const validListOrString = (values) => {
     return values.length === 1 ? values[0] : values;
 };
 
-module.exports.validFilePath = validFilePath;
+const validJSON = (value) => {
+    let res = null;
+
+    try {
+        res = validFilepath(value);
+    } catch (e) {
+        try {
+            res = JSON.parse(value);
+        } catch (e) {
+            throw new Error(`"${value}" is not valid filepath or a JSON serializable string`);
+        }
+    }
+
+    return res;
+};
+
+module.exports.validFilePath = validFilepath;
 module.exports.validList = validList;
 module.exports.validListOrString = validListOrString;
-
+module.exports.validJSON = validJSON;

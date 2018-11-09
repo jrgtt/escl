@@ -3,28 +3,27 @@
 const yargs = require('yargs');
 const editor = require('./editor.js');
 
-const { validFilePath } = require('./utils/validation.js');
+const { validFilepath, validJSON } = require('./utils/validation.js');
 
 const argv = yargs
       .command('$0', 'Refer to elasticsearch documentation to check which methods you can use')
       .option('editor', {
           alias: 'e',
-          describe: 'Use your default editor or provide one to be used',
+          describe: 'Use your editor to edit the request',
           type: 'boolean'
       })
       .option('file', {
           alias: 'f',
           describe: 'JS/JSON file to be sent as parameters',
           type: 'string',
-          coerce: validFilePath
+          coerce: validFilepath
       })
       .option('body', {
           alias: 'b',
-          describe: 'JS/JSON file to be sent as body key in parameters',
+          describe: 'JS/JSON file or a valid JSON serializable string',
           type: 'string',
-          coerce: validFilePath
+          coerce: validJSON
       })
-      .help()
       .argv;
 
 const {

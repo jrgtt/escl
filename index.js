@@ -36,5 +36,4 @@ const {
     ...options
 } = argv;
 
-require('./lib/steker.js')([namespaceOrCmd, cmd], options)
-    .catch(() => {}); // avoids closing the program in unhandled exception
+require('./lib/steker.js')([namespaceOrCmd, cmd], options);

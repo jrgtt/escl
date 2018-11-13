@@ -36,7 +36,7 @@ const validJSON = (value) => {
     return res;
 };
 
-module.exports.validFilePath = validFilepath;
+module.exports.validFilepath = validFilepath;
 module.exports.validList = validList;
 module.exports.validListOrString = validListOrString;
 module.exports.validJSON = validJSON;

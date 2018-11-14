@@ -23,6 +23,10 @@ const argv = yargs
           type: 'string',
           coerce: validJSON
       })
+      .option('pretty', {
+          describe: 'Print a pretty JSON format',
+          type: 'boolean'
+      })
       .argv;
 
 const {
@@ -36,4 +40,17 @@ const {
     ...options
 } = argv;
 
-require('./lib/steker.js')([namespaceOrCmd, cmd], options);
+// get value if set and remove it to avoid sending unused options to client
+const prettyFormat = options.pretty;
+delete options.pretty;
+
+require('./lib/steker.js')([namespaceOrCmd, cmd], options)
+    .then((res) => console.log(JSON.stringify(res, null, prettyFormat ? 2 : 0)))
+    .catch((e) => {
+        // In case error comes from an elasticsearch operation
+        if (typeof e.toJSON === 'function') {
+            console.error(e.toJSON())
+        } else {
+            console.error(e);
+        }
+    });

@@ -5,6 +5,7 @@
   "author": "Jean Rigotti <gmgotti@protonmail.com>",
   "license": "MIT",
   "dependencies": {
+    "bodybuilder": "^2.2.16",
     "cosmiconfig": "^5.0.6",
     "elasticsearch": "^15.1.1",
     "recast": "^0.16.0",

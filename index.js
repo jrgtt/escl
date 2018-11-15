@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const yargs = require('yargs');
+const steker = require('./lib/steker.js');
 
 const { validFilepath, validJSON } = require('./utils/validation.js');
 
@@ -27,6 +28,12 @@ const argv = yargs
           describe: 'Print a pretty JSON format',
           type: 'boolean'
       })
+      .option('watch', {
+          alias: 'w',
+          describe: 'Watch file for changes and redo commmand',
+          type: 'string',
+          coerce: validFilepath
+      })
       .argv;
 
 const {
@@ -44,7 +51,11 @@ const {
 const prettyFormat = options.pretty;
 delete options.pretty;
 
-require('./lib/steker.js')([namespaceOrCmd, cmd], options)
+const shouldWatch = options.watch;
+delete options.watch;
+delete options.w;
+
+steker([namespaceOrCmd, cmd], options)
     .then((res) => console.log(JSON.stringify(res, null, prettyFormat ? 2 : 0)))
     .catch((e) => {
         // In case error comes from an elasticsearch operation

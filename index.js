@@ -3,8 +3,11 @@
 
 const yargs = require('yargs');
 
+// project specific configuration
+const config = require('./lib/configuration.js');
+
 // the elasticsearch client
-const client = require('./client.js')();
+const client = require('./client.js')(config.client);
 
 // the command runner
 const steker = require('./lib/steker.js')(client);

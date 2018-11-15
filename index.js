@@ -88,7 +88,13 @@ if (watch) {
 // the starter function
 const trigger = () => {
     steker([namespaceOrCmd, cmd], params, programOptions)
-        .then((res) => console.log(JSON.stringify(res, null, pretty ? 2 : 0)))
+        .then((res) => {
+            if (res instanceof Object) {
+                console.log(JSON.stringify(res, null, pretty ? 2 : 0));
+            } else {
+                console.log(res);
+            }
+        })
         .catch((e) => {
             // In case error comes from an elasticsearch operation
             if (typeof e.toJSON === 'function') {

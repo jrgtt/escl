@@ -1,7 +1,13 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
 
 const yargs = require('yargs');
-const steker = require('./lib/steker.js');
+
+// the elasticsearch client
+const client = require('./client.js')();
+
+// the command runner
+const steker = require('./lib/steker.js')(client);
 
 const { validFilepath, validJSON } = require('./utils/validation.js');
 
@@ -36,32 +42,59 @@ const argv = yargs
       })
       .argv;
 
+/* eslint-disable no-unused-vars */
 const {
-    // eslint-disable-next-line
     '$0': _binPath, // location of the script (not used)
 
     // extract commands that come in `_` key
     _: [namespaceOrCmd, cmd],
 
-    // rest of the options passed
-    ...options
+    editor,
+    e,
+    file,
+    f,
+    body,
+    b,
+    pretty,
+    watch,
+    w,
+
+    // non escli options become client parameters
+    ...params
 } = argv;
+/* eslint-enable no-unused-vars */
 
-// get value if set and remove it to avoid sending unused options to client
-const prettyFormat = options.pretty;
-delete options.pretty;
+const programOptions = {
+    editor,
+    file: file || watch,
+    body
+};
 
-const shouldWatch = options.watch;
-delete options.watch;
-delete options.w;
+if (watch) {
+    // pool watch function for later
+    setTimeout(() => {
+        // TODO: according to Node.js docs `.watch` is better than `.watchFile`
+        // perhaps should create a setInterval here for pooling the file...
+        // can also be a config property
+        require('fs').watchFile(watch, () => {
+            trigger()
+        });
+    }, 0);
+}
 
-steker([namespaceOrCmd, cmd], options)
-    .then((res) => console.log(JSON.stringify(res, null, prettyFormat ? 2 : 0)))
-    .catch((e) => {
-        // In case error comes from an elasticsearch operation
-        if (typeof e.toJSON === 'function') {
-            console.error(e.toJSON())
-        } else {
-            console.error(e);
-        }
-    });
+// the starter function
+const trigger = () => {
+    steker([namespaceOrCmd, cmd], params, programOptions)
+        .then((res) => console.log(JSON.stringify(res, null, pretty ? 2 : 0)))
+        .catch((e) => {
+            // In case error comes from an elasticsearch operation
+            if (typeof e.toJSON === 'function') {
+                console.error(e.toJSON())
+            } else {
+                console.error(e);
+            }
+        });
+};
+
+// execute program
+trigger();

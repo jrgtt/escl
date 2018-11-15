@@ -90,7 +90,7 @@ const trigger = () => {
     steker([namespaceOrCmd, cmd], params, programOptions)
         .then((res) => {
             if (res instanceof Object) {
-                console.log(JSON.stringify(res, null, pretty ? 2 : 0));
+                console.log(JSON.stringify(res, null, config.pretty || pretty ? config.tabWidth : 0));
             } else {
                 console.log(res);
             }

@@ -37,7 +37,8 @@ const validJSON = (value) => {
 };
 
 const validClientCall = (client) => ([_namespaceOrCmd, cmd]) => {
-    let fn = client[_namespaceOrCmd];
+    // the slice happens because commands start with underscore
+    let fn = client[_namespaceOrCmd.slice(1)];
 
     if (typeof fn === 'undefined') {
         throw new Error(`${_namespaceOrCmd} is not a valid command`);

@@ -12,10 +12,13 @@ const client = require('./client.js')(config.client);
 // the command runner
 const steker = require('./lib/steker.js')(client);
 
-const { validFilepath, validJSON } = require('./utils/validation.js');
+const { validFilepath, validJSON, validClientCall } = require('./utils/validation.js');
 
 const argv = yargs
-      .command('$0', 'Refer to elasticsearch documentation to check which methods you can use')
+      .command('$0', 'Refer to elasticsearch documentation to check which methods you can use', ({ argv }) => {
+          // will throw an error if not valid
+          validClientCall(client)(argv._);
+      })
       .option('editor', {
           alias: 'e',
           describe: 'Use your editor to edit the request',

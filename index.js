@@ -53,7 +53,7 @@ const {
     '$0': _binPath, // location of the script (not used)
 
     // extract commands that come in `_` key
-    _: [namespaceOrCmd, cmd],
+    _: commands,
 
     editor,
     e,
@@ -90,7 +90,7 @@ if (watch) {
 
 // the starter function
 const trigger = () => {
-    steker([namespaceOrCmd, cmd], params, programOptions)
+    steker(commands, params, programOptions)
         .then((res) => {
             if (res instanceof Object) {
                 console.log(JSON.stringify(res, null, config.pretty || pretty ? config.tabWidth : 0));

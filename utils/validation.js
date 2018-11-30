@@ -36,7 +36,27 @@ const validJSON = (value) => {
     return res;
 };
 
+const validClientCall = (client) => ([_namespaceOrCmd, cmd]) => {
+    let fn = client[_namespaceOrCmd];
+
+    if (typeof fn === 'undefined') {
+        throw new Error(`${_namespaceOrCmd} is not a valid command`);
+    } else {
+        if (cmd) {
+            // if cmd is passed, try to get it from client
+            fn = fn[cmd];
+            // but throw error if it doesn't exists
+            if (typeof fn === 'undefined') {
+                throw new Error(`${cmd} is not a valid subcommand from ${_namespaceOrCmd}`);
+            }
+        }
+    }
+
+    return fn;
+};
+
 module.exports.validFilepath = validFilepath;
 module.exports.validList = validList;
 module.exports.validListOrString = validListOrString;
 module.exports.validJSON = validJSON;
+module.exports.validClientCall = validClientCall;

@@ -5,21 +5,19 @@ const generateFallbackFile = (options = {}) => {
     const fs = require('fs');
     const path = require('path');
 
-    // templates are js parsed strings
-    const templateString = require('./templates/_default.js')(options);
+    // this file will be generated under /tmp/ to make the editions
+    const generatedFile = path.join('/tmp', '_escli.js');
 
-    // generate a random file name
-    const generatedFile = path.join('/tmp', `${Math.random().toString(36).substring(7)}.js`);
+    // generate file if it doesn't already exists
+    if (!fs.existsSync(generatedFile)) {
+        // a template will be build on top of the passed options
+        const templateString = require('./templates/_default.js')(options);
 
-    // like copy, but node doesn't complain about it
-    fs.writeFileSync(generatedFile, templateString);
+        // like copy, but node doesn't complain about it
+        fs.writeFileSync(generatedFile, templateString);
+    }
 
-    return [
-        // send the path of the new file
-        generatedFile,
-        // provide function to delete the file
-        () => fs.unlinkSync(generatedFile)
-    ];
+    return generatedFile;
 };
 
 /**
@@ -27,16 +25,13 @@ const generateFallbackFile = (options = {}) => {
  * parameter for command
  *
  * @param {String} filepath path of the file to edit, pass nothing to create one
- * @param {String} template will look for templates for the requisition
  * @returns {Promise} will give back to the contents of the file
  */
 module.exports = (filepath, options = {}) => {
-    let afterEdit = () => {}; // noop function
-
     // if no file is provided generate one from templates
-    if (!filepath) {
-        [ filepath, afterEdit ] = generateFallbackFile(options);
-    }
+    filepath = typeof filepath === 'string'
+        ? filepath
+        : generateFallbackFile(options);
 
     return new Promise((resolve) => {
         spawn(editor, [filepath], { stdio: 'inherit' }).on('exit', (e) => {
@@ -47,8 +42,6 @@ module.exports = (filepath, options = {}) => {
             } catch (fe) {
                 throw fe;
             }
-
-            afterEdit();
         });
     });
 };

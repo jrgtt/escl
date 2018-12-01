@@ -83,7 +83,7 @@ if (watch) {
         // perhaps should create a setInterval here for pooling the file...
         // can also be a config property
         require('fs').watchFile(watch, () => {
-            trigger()
+            trigger();
         });
     }, 0);
 }
@@ -101,7 +101,7 @@ const trigger = () => {
         .catch((e) => {
             // In case error comes from an elasticsearch operation
             if (typeof e.toJSON === 'function') {
-                console.error(e.toJSON())
+                console.error(e.toJSON());
             } else {
                 console.error(e);
             }

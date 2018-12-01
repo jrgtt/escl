@@ -105,6 +105,9 @@ const trigger = () => {
             } else {
                 console.error(e);
             }
+
+            // exit program
+            process.exit(1);
         });
 };
 

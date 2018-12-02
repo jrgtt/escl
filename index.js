@@ -15,15 +15,11 @@ const steker = require('./lib/steker.js')(client);
 const { validFilepath, validJSON, validClientCall } = require('./utils/validation.js');
 
 const argv = yargs
-      .command('$0', 'Refer to elasticsearch documentation to check which methods you can use', ({ argv }) => {
-          // will throw an error if not valid
-          validClientCall(client)(argv._);
-      })
+      .command('$0', 'Refer to elasticsearch documentation to check which methods you can use')
       .option('edit', {
           alias: 'e',
-          describe: 'Open up file with your editor',
-          type: 'string',
-          coerce: validFilepath
+          describe: 'Edit requisition before sending it to Elasticsearch client',
+          type: 'boolean'
       })
       .option('file', {
           alias: 'f',

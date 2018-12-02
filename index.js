@@ -19,10 +19,11 @@ const argv = yargs
           // will throw an error if not valid
           validClientCall(client)(argv._);
       })
-      .option('editor', {
+      .option('edit', {
           alias: 'e',
-          describe: 'Use your editor to edit the request',
-          type: 'boolean'
+          describe: 'Open up file with your editor',
+          type: 'string',
+          coerce: validFilepath
       })
       .option('file', {
           alias: 'f',
@@ -55,7 +56,7 @@ const {
     // extract commands that come in `_` key
     _: commands,
 
-    editor,
+    edit,
     e,
     file,
     f,
@@ -71,7 +72,7 @@ const {
 /* eslint-enable no-unused-vars */
 
 const programOptions = {
-    editor,
+    edit,
     file: file || watch,
     body
 };

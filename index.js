@@ -38,7 +38,7 @@ const argv = yargs
           coerce: validJSON
       })
       .option('pretty', {
-          describe: 'Print a pretty JSON format',
+          describe: 'Print JSON output in a pretty format',
           type: 'boolean'
       })
       .option('watch', {
@@ -78,11 +78,7 @@ const programOptions = {
 };
 
 if (watch) {
-    // pool watch function for later
     setTimeout(() => {
-        // TODO: according to Node.js docs `.watch` is better than `.watchFile`
-        // perhaps should create a setInterval here for pooling the file...
-        // can also be a config property
         require('fs').watchFile(watch, () => {
             trigger();
         });

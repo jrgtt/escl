@@ -12,7 +12,7 @@ const client = require('./client.js')(config.client);
 // the command runner
 const steker = require('./lib/steker.js')(client);
 
-const { validFilepath, validJSON, validClientCall } = require('./utils/validation.js');
+const { validFilepath, validJSON } = require('./utils/validation.js');
 
 const argv = yargs
       .command('$0', 'Refer to elasticsearch documentation to check which methods you can use')
@@ -44,40 +44,18 @@ const argv = yargs
       })
       .argv;
 
-/* eslint-disable no-unused-vars */
-const {
-    '$0': _binPath, // location of the script (not used)
+const [
+    commands,
+    params,
+    programOptions
+] = require('./lib/distillator.js')(argv);
 
-    // extract commands that come in `_` key
-    _: commands,
-
-    edit,
-    e,
-    file,
-    f,
-    body,
-    b,
-    pretty,
-    watch,
-    w,
-
-    // non escli options become client parameters
-    ...params
-} = argv;
-/* eslint-enable no-unused-vars */
-
-const programOptions = {
-    edit,
-    file,
-    body
-};
-
-if (watch && (file || typeof body === 'string')) {
+if (programOptions.watch && (programOptions.file || typeof programOptions.body === 'string')) {
     const fileToWatch = (() => {
-        if (file) {
-            return file;
-        } else if (typeof body === 'string') {
-            return body;
+        if (programOptions.file) {
+            return programOptions.file;
+        } else if (typeof programOptions.body === 'string') {
+            return programOptions.body;
         }
     })();
 
@@ -86,7 +64,7 @@ if (watch && (file || typeof body === 'string')) {
             trigger();
         });
     }, 0);
-} else if (watch) {
+} else if (programOptions.watch) {
     console.log('The `watch` option needs to be sent along `file` or `body`');
 }
 
@@ -95,7 +73,7 @@ const trigger = () => {
     steker(commands, params, programOptions)
         .then((res) => {
             if (res instanceof Object) {
-                console.log(JSON.stringify(res, null, config.pretty || pretty ? config.tabWidth : 0));
+                console.log(JSON.stringify(res, null, config.pretty || programOptions.pretty ? config.tabWidth : 0));
             } else {
                 console.log(res);
             }

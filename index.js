@@ -40,8 +40,7 @@ const argv = yargs
       .option('watch', {
           alias: 'w',
           describe: 'Watch file for changes and redo commmand',
-          type: 'string',
-          coerce: validFilepath
+          type: 'boolean'
       })
       .argv;
 
@@ -69,16 +68,26 @@ const {
 
 const programOptions = {
     edit,
-    file: file || watch,
+    file,
     body
 };
 
-if (watch) {
+if (watch && (file || typeof body === 'string')) {
+    const fileToWatch = (() => {
+        if (file) {
+            return file;
+        } else if (typeof body === 'string') {
+            return body;
+        }
+    })();
+
     setTimeout(() => {
-        require('fs').watchFile(watch, () => {
+        require('fs').watchFile(fileToWatch, () => {
             trigger();
         });
     }, 0);
+} else if (watch) {
+    console.log('The `watch` option needs to be sent along `file` or `body`');
 }
 
 // the starter function

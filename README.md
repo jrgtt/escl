@@ -26,7 +26,7 @@ Fires up your editor to edit the parameters before calling the
 command. If used in conjunction with `--file`, `--watch` or `--body` options it
 will open the file instead of generating one.
 
-## `--body|b <path|JSONString>`
+## `--body|b <filepath|JSONString>`
 The body option can accept a file or a string as parameter, if a file
 is passed it's expected to be a JSON file or a valid JS module
 file exporting an object.
@@ -61,3 +61,7 @@ The same can be achieved with a valid JSON string.
 ``` shell
 escli _search --index myindex -b '{"query": "match_all": {}}'
 ```
+
+## `--watch|w`
+The watch flag used in conjuction with `--file` or `--body` will watch the file
+for changes and redo the command when it notices changes on it.

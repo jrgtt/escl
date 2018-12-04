@@ -33,10 +33,6 @@ const argv = yargs
           type: 'string',
           coerce: validJSON
       })
-      .option('pretty', {
-          describe: 'Print JSON output in a pretty format',
-          type: 'boolean'
-      })
       .option('watch', {
           alias: 'w',
           describe: 'Watch file for changes and redo commmand',
@@ -73,7 +69,7 @@ const trigger = () => {
     steker(commands, params, programOptions)
         .then((res) => {
             if (res instanceof Object) {
-                console.log(JSON.stringify(res, null, config.pretty || programOptions.pretty ? config.tabWidth : 0));
+                console.log(JSON.stringify(res, null, config.printWidth));
             } else {
                 console.log(res);
             }

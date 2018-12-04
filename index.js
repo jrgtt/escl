@@ -46,11 +46,11 @@ const [
     programOptions
 ] = require('./lib/distillator.js')(argv);
 
-if (programOptions.watch && (programOptions.file || typeof programOptions.body === 'string')) {
+if (programOptions.watch && (programOptions.file ||  programOptions.isBodyFile)) {
     const fileToWatch = (() => {
         if (programOptions.file) {
             return programOptions.file;
-        } else if (typeof programOptions.body === 'string') {
+        } else if (programOptions.isBodyFile) {
             return programOptions.body;
         }
     })();

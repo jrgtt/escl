@@ -59,7 +59,7 @@ client.search({
 
 The same can be achieved with a valid JSON string.
 ``` shell
-escli _search --index myindex -b '{"query": "match_all": {}}'
+escli _search --index myindex -b '{"query": {"match_all": {}}}'
 ```
 
 ### `--watch|w`

@@ -42,6 +42,8 @@ const validClientCall = (client) => ([_namespaceOrCmd, cmd]) => {
 
     if (typeof fn === 'undefined') {
         throw new Error(`${_namespaceOrCmd} is not a valid command`);
+    } else if (fn.transport && !cmd) {
+        throw new Error(`${_namespaceOrCmd} requires another subcommand`);
     } else {
         if (cmd) {
             // if cmd is passed, try to get it from client

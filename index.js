@@ -18,7 +18,7 @@ const argv = yargs
       .command('$0', 'Refer to elasticsearch documentation to check which methods you can use')
       .option('edit', {
           alias: 'e',
-          describe: 'Edit requisition before sending it to Elasticsearch client',
+          describe: 'Edit command parameters before executing',
           type: 'boolean'
       })
       .option('file', {
@@ -40,13 +40,18 @@ const argv = yargs
       })
       .argv;
 
-const [
-    commands,
-    params,
-    programOptions
-] = require('./lib/distillator.js')(argv);
+let commands = null;
+let params = null;
+let programOptions = null;
 
-if (programOptions.watch && (programOptions.file ||  programOptions.isBodyFile)) {
+try {
+    [commands, params, programOptions] = require('./lib/distillator.js')(argv);
+} catch (e) {
+    console.error(e);
+    process.exit(1);
+}
+
+if (programOptions.watch && (programOptions.file || programOptions.isBodyFile)) {
     const fileToWatch = (() => {
         if (programOptions.file) {
             return programOptions.file;
@@ -60,8 +65,6 @@ if (programOptions.watch && (programOptions.file ||  programOptions.isBodyFile))
             trigger();
         });
     }, 0);
-} else if (programOptions.watch) {
-    console.log('The `watch` option needs to be sent along `file` or `body`');
 }
 
 // the starter function

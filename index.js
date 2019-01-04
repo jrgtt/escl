@@ -15,7 +15,8 @@ const steker = require('./lib/steker.js')(client);
 const { validFilepath, validJSON } = require('./utils/validation.js');
 
 const argv = yargs
-      .command('$0', 'Refer to elasticsearch documentation to check which methods you can use')
+      .command('$0', 'A command line tool to run elasticsearch-js methods')
+      .version('0.1.0')
       .option('edit', {
           alias: 'e',
           describe: 'Edit command parameters before executing',
@@ -76,6 +77,8 @@ const trigger = () => {
             } else {
                 console.log(res);
             }
+
+            process.exit(0);
         })
         .catch((e) => {
             // In case error comes from an elasticsearch operation

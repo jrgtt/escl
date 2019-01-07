@@ -1,5 +1,6 @@
 const { spawn } = require('child_process');
 const editor = process.env.EDITOR || 'vi';
+const requireFileParams = require('./lib/requireFileParams.js');
 
 const generateFallbackFile = (options = {}) => {
     const fs = require('fs');
@@ -42,7 +43,7 @@ module.exports = (filepath, options = {}) => {
             if (e) throw e;
 
             try {
-                resolve(require(filepath));
+                resolve(requireFileParams(filepath, options));
             } catch (fe) {
                 throw fe;
             }

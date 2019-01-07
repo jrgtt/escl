@@ -17,6 +17,7 @@ const { logSuccess, logError } = require('./lib/logger.js');
 const argv = yargs
       .command('$0', 'A command line tool to run elasticsearch-js methods')
       .version('0.1.0')
+      .help('H')
       .option('edit', {
           alias: 'e',
           describe: 'Edit command parameters before executing',

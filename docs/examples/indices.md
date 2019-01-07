@@ -5,7 +5,7 @@ and mappings.
 
 Check out more over the [indices
 api](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices.html)
-in the official elasticsearch documenation.
+in the official elasticsearch documentation.
 
 ## [_indices create](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-indices-create)
 

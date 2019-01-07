@@ -5,7 +5,7 @@ overriding its default functionality and responses.
 
 ## Running it locally
 Clone this package and inside of the folder, make sure to run `yarn` or `npm
-install to install its dependencies.
+install` to install its dependencies.
 
 
 To run the cloned `escli` version refer to its full path in the command line like:
@@ -18,5 +18,5 @@ or run `yarn link` or `npm link` inside the folder to have a global esque
 feeling like:
 
 ```
-escli _info_
+escli _info
 ```

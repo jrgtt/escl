@@ -74,5 +74,5 @@ is being handled.
 
 ## Contributing
 Contribuitions and improvements in accord with the project philosophy are gladly
-accepted. Make sure to check the [contribuiting]('CONTRIBUTING.md') guide for
+accepted. Make sure to check the [contribuiting](CONTRIBUTING.md) guide for
 more info.

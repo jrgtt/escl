@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable no-console */
 
 const yargs = require('yargs');
 
@@ -13,6 +12,7 @@ const client = require('./client.js')(config.client);
 const steker = require('./lib/steker.js')(client);
 
 const { validFilepath, validJSON } = require('./utils/validation.js');
+const { logSuccess, logError } = require('./lib/logger.js');
 
 const argv = yargs
       .command('$0', 'A command line tool to run elasticsearch-js methods')
@@ -41,14 +41,10 @@ const argv = yargs
       })
       .argv;
 
-let commands = null;
-let params = null;
-let programOptions = null;
-
 try {
-    [commands, params, programOptions] = require('./lib/distillator.js')(argv);
+    var [commands, params, programOptions] = require('./lib/distillator.js')(argv);
 } catch (e) {
-    console.error(e);
+    logError(e);
     process.exit(1);
 }
 
@@ -72,22 +68,11 @@ if (programOptions.watch && (programOptions.file || programOptions.isBodyFile)) 
 const trigger = () => {
     steker(commands, params, programOptions)
         .then((res) => {
-            if (res instanceof Object) {
-                console.log(JSON.stringify(res, null, config.printWidth));
-            } else {
-                console.log(res);
-            }
-
+            logSuccess(res);
             process.exit(0);
         })
         .catch((e) => {
-            // In case error comes from an elasticsearch operation
-            if (typeof e.toJSON === 'function') {
-                console.error(e.toJSON());
-            } else {
-                console.error(e);
-            }
-
+            logError(e);
             // exit program
             process.exit(1);
         });

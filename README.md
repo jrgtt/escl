@@ -2,6 +2,8 @@
 A high-level command line wrapper around the
 [elasticsearch.js](https://github.com/elastic/elasticsearch-js) client.
 
+[![asciicast](https://asciinema.org/a/YUQjR3vyDMeZnYFvX98dAknCh.png)](https://asciinema.org/a/YUQjR3vyDMeZnYFvX98dAknCh)
+
 ## Installation
 ``` shell
 npm install -g escli

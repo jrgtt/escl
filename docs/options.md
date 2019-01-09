@@ -1,8 +1,9 @@
 # Options
 The options passed to escli commands varies according to which methods of the
 elasticsearch client you want to call and will be passed down as properties.
-However, escli a few special options as its own and can be used in conjunction
-with the majority command. Herein its described how to make use of them.
+However, escli claims few special options as its own and can be used in
+conjunction with the majority of commands. Herein its described how to make use
+of them.
 
 ## Regular options
 Given that you want to call the
@@ -33,15 +34,15 @@ Passing everything in the command line can easily become daunting, specially if
 you need to deal with search queries. For this reason escli provides `file` and
 `body` as special options where js/json files can be passed as value.
 
-In the [search section](examples/search.md) in examples you can find more
-in depth uses.
+__NOTE__: In the [search section](examples/search.md) in examples you can find more
+in depth use cases.
 
 ### `--file|f <filepath>`
 The file option will get the contents from the passed file and will call the
 method with it.
 
 ``` javascript
-// user.js
+// query.js
 module.exports = {
     index: 'myindex',
     body: {
@@ -70,7 +71,7 @@ client.search({
 });
 ```
 
-NOTE: The parameter `size` is merged with the file contents, this means that in
+__NOTE__: The parameter `size` is merged with the file contents, this means that in
 case of a duplicated parameter the one passed in the command line gains
 precedence.
 
@@ -100,7 +101,7 @@ versions should contain improvements around them.
 ### `--edit|e`
 Fires up your default editor to edit the parameters before calling the command.
 If used in conjunction with `--file` or `--body` it will open the file instead
-of generating a one.
+of generating one.
 
 ``` shell
 # edit, save and close to see the results 
@@ -119,6 +120,6 @@ for changes and redo the command when it notices changes on it. It's specially
 useful when you're testing a new query.
 
 ``` shell
-# every change to query.js now will trigger the _search command_
+# every change to query.js now will trigger the _search command
 $ escli _search --file ./query.js --watch
 ```

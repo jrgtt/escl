@@ -28,4 +28,4 @@ module.exports = {
 ```
 
 For more information over the `client` property check [setup
-client]('./setting-up-client.md').
+client](setting-up-client.md).

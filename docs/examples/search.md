@@ -99,7 +99,7 @@ And then called:
 $ escli _search --file ./query.js
 ```
 
-NOTE: In the command above the omission of the `index` and `type` parameters. If
+__NOTE__: In the command above the omission of the `index` and `type` parameters. If
 one of those were passed in the command above it would override the ones with
 the same name in the file.
 
@@ -107,11 +107,14 @@ the same name in the file.
 ### Usage with bodybuilder
 
 [Bodybuilder](https://github.com/danpaz/bodybuilder) is an amazing library to
-write elasticsearch queries and you can leverage its power within escli.
+write elasticsearch queries and you can leverage its power within escli by
+returning a closure instead of an object.
 
 ```javascript
 // query.js
 module.exports = (params, modules) => {
+    const myIndex = params.index; // params contains options passed in the command line
+
     const bodybuilder = modules.bodybuilder;
     const query = bodybuilder().query('match', 'name', 'john').build();
 
@@ -127,6 +130,3 @@ And then called:
 ```
 $ escli _search --index es_user_v1 -f ./query.js
 ```
-
-Note the `params` argument, it will contain all parameters that were passed in
-the command.

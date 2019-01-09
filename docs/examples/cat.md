@@ -35,7 +35,7 @@ $ escli _cat indices -v
 # sort by indices name desc
 $ escli _cat indices -s "index:desc"
 
-# limit the indices returned
+# limit the indices returned with wildcard
 $ escli _cat indices --index "es*"
 ```
 

@@ -11,6 +11,7 @@ here I lay the default configuration.
 ``` javascript
 // .esclirc.js
 module.exports = {
+   silent: false,
    client: {
        host: 'http://localhost:9200',
        log: false
@@ -45,9 +46,9 @@ module.exports = {
 
 ## A note about logging
 
-In the examples above I suppress the client's log by passing `log:
-false`, since escli already provides you one. If you want do logging
-in your own way, check out
+In the examples above I suppress the client's log by passing `log: false`, since
+escli already provides you one. If you want to do logging in your own way, check
+out
 [setup-logging](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/logging.html)
 in elasticsearch.js documentation.
 

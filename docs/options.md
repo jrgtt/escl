@@ -1,26 +1,44 @@
 # Options
-Options passed in the command will be added as keys to the client function.
+The options passed to escli commands varies according to which methods of the
+elasticsearch client you want to call and will be passed down as properties.
+However, escli a few special options as its own and can be used in conjunction
+with the majority command. Herein its described how to make use of them.
 
-The following command passes `index` and `type` as parameters.
+## Regular options
+Given that you want to call the
+[`search`](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-search)
+method of the client.
 
 ``` shell
-$ escli _search --index myindex --type mytype
+$ escli _search \
+  --index myindex \
+  --type mytype \
+  --size 5 \
+  --q "title:search"
 ```
 
-Will translate into:
+Under the hood escli will convert the command in the following call:
 
 ``` javascript
 client.search({
     index: 'myindex',
-    type: 'mytype'
+    type: 'mytype',
+    size: 5,
+    q: 'title:search'
 });
 ```
 
-## Special Options
-Escli however claims a few of those options for its own purposes.
+## Using files
+Passing everything in the command line can easily become daunting, specially if
+you need to deal with search queries. For this reason escli provides `file` and
+`body` as special options where js/json files can be passed as value.
+
+In the [search section](examples/search.md) in examples you can find more
+in depth uses.
 
 ### `--file|f <filepath>`
-The file option expects a JSON file or a valid JS file exporting an object.
+The file option will get the contents from the passed file and will call the
+method with it.
 
 ``` javascript
 // user.js
@@ -35,7 +53,7 @@ module.exports = {
 ```
 
 ``` shell
-$ escli _search --file ./query.js
+$ escli _search --size 5 --file ./query.js
 ```
 
 This will translate into the following call in the client.
@@ -47,14 +65,19 @@ client.search({
         query: {
             match_all: {}
         }
-    }
+    },
+    size: 5
 });
 ```
 
-### `--body|b <filepath|JSONString>`
+NOTE: The parameter `size` is merged with the file contents, this means that in
+case of a duplicated parameter the one passed in the command line gains
+precedence.
+
+### `--body|b <filepath>`
 The body option behaves pretty much the same as the file option, except that its
-value will be passed to the `body` property. Below you can see an equivalent
-call to the one above.
+value will be passed to the `body` property instead. Below you can see an
+equivalent call to the one above.
 
 ``` javascript
 // query.js
@@ -66,25 +89,36 @@ module.exports = {
 ```
 
 ``` shell
-escli _search --index myindex --body ./query.js
-```
-
-The same can also be achieved with a valid JSON string.
-
-``` shell
-escli _search --index myindex -b '{"query": {"match_all": {}}}'
+$ escli _search --index myindex --size 5 --body ./query.js
 ```
 
 ## Experimental
 A few options are still in development and its functionalities might be clunky.
-In either way I (the project's creator) consider those the real game changers of
-`escli` and will work to improve them.
+In either way those might be considered game changers of `escli` and future
+versions should contain improvements around them.
 
-### `--edit|-e`
-Fires up your editor to edit the parameters before calling the
-command. If used in conjunction with `--file`, `--watch` or `--body` options it
-will open the file instead of generating a new one.
+### `--edit|e`
+Fires up your default editor to edit the parameters before calling the command.
+If used in conjunction with `--file` or `--body` it will open the file instead
+of generating a one.
+
+``` shell
+# edit, save and close to see the results 
+$ escli _search --index myindex --type mytype -e
+
+# edit an already existing file
+$ escli _search --index myindex --body ./query.js -e
+
+# use a different editor on the spot
+$ EDITOR=emacs escli _search --index myindex -e
+```
 
 ### `--watch|w`
 The watch flag used in conjuction with `--file` or `--body` will watch the file
-for changes and redo the command when it notices changes on it.
+for changes and redo the command when it notices changes on it. It's specially
+useful when you're testing a new query.
+
+``` shell
+# every change to query.js now will trigger the _search command_
+$ escli _search --file ./query.js --watch
+```

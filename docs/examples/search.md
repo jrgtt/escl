@@ -99,7 +99,7 @@ And then called:
 $ escli _search --file ./query.js
 ```
 
-Note in the command above the omission of the `index` and `type` parameters. If
+NOTE: In the command above the omission of the `index` and `type` parameters. If
 one of those were passed in the command above it would override the ones with
 the same name in the file.
 

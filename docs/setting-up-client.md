@@ -5,8 +5,8 @@ provides you a few default configuration in case no options are
 passed, but having knowledge and control over your client is
 essential.
 
-To pass down information to escli, your `.esclirc` is the way. Down
-here I lay the default configuration.
+To pass down information to escli, your [`.esclirc`](esclirc.md) is the way.
+Down here I lay the default configuration.
 
 ``` javascript
 // .esclirc.js

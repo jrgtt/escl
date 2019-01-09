@@ -1,6 +1,6 @@
 {
   "name": "escli",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "index.js",
   "author": "Jean Rigotti <gmgotti@protonmail.com>",
   "license": "MIT",
@@ -17,9 +17,30 @@
   "engines": {
     "node": ">=10.12.0"
   },
-  "bin": "./index.js",
+  "bin": {
+    "escli": "./index.js"
+  },
   "devDependencies": {
     "eslint": "^5.8.0",
     "eslint-plugin-node": "^8.0.0"
-  }
+  },
+  "description": "A high-level command line wrapper around the [elasticsearch.js](https://github.com/elastic/elasticsearch-js) client.",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib",
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JRigotti/escli.git"
+  },
+  "keywords": [
+    "elasticsearch",
+    "cli"
+  ],
+  "bugs": {
+    "url": "https://github.com/JRigotti/escli/issues"
+  },
+  "homepage": "https://github.com/JRigotti/escli#readme",
+  "preferGlobal": true
 }

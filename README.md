@@ -44,8 +44,9 @@ should output a response in a similar format as below:
 Check the [examples folder](docs/examples/) for more commands.
 
 ## Documentation
-- [Customize your escli with .esclirc file](docs/esclirc.md)
+- [Which commands can I execute](docs/commands.md)
 - [Passing options to commands](docs/options.md)
+- [Customize your escli with .esclirc file](docs/esclirc.md)
 
 ## Disclaimer
 This is side project I've built in my spare time with the purpose of helping me

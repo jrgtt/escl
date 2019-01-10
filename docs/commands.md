@@ -1,6 +1,6 @@
 # commands
 
-To understand which commands you have access inside `escli`, you need to
+To understand which commands you have access inside `escl`, you need to
 understand what methods your client can call. This is directly bounded to how
 your client was created in [setting up client](setting-up-client.md) section and
 which version are you using.
@@ -15,7 +15,7 @@ including the method
 which you can see in action below.
 
 ``` shell
-$ escli _exists \
+$ escl _exists \
     --index es_user_v1 \
     --type user \
     --id 1
@@ -27,5 +27,5 @@ the case of
 which can be translate to the command line like
 
 ``` shell
-$ escli _indices getMapping --index es_user_v1
+$ escl _indices getMapping --index es_user_v1
 ```

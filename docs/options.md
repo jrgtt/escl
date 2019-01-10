@@ -1,7 +1,7 @@
 # Options
-The options passed to escli commands varies according to which methods of the
+The options passed to escl commands varies according to which methods of the
 elasticsearch client you want to call and will be passed down as properties.
-However, escli claims few special options as its own and can be used in
+However, escl claims few special options as its own and can be used in
 conjunction with the majority of commands. Herein its described how to make use
 of them.
 
@@ -11,14 +11,14 @@ Given that you want to call the
 method of the client.
 
 ``` shell
-$ escli _search \
+$ escl _search \
   --index myindex \
   --type mytype \
   --size 5 \
   --q "title:search"
 ```
 
-Under the hood escli will convert the command in the following call:
+Under the hood escl will convert the command in the following call:
 
 ``` javascript
 client.search({
@@ -31,7 +31,7 @@ client.search({
 
 ## Using files
 Passing everything in the command line can easily become daunting, specially if
-you need to deal with search queries. For this reason escli provides `file` and
+you need to deal with search queries. For this reason escl provides `file` and
 `body` as special options where js/json files can be passed as value.
 
 __NOTE__: In the [search section](examples/search.md) in examples you can find more
@@ -54,7 +54,7 @@ module.exports = {
 ```
 
 ``` shell
-$ escli _search --size 5 --file ./query.js
+$ escl _search --size 5 --file ./query.js
 ```
 
 This will translate into the following call in the client.
@@ -90,12 +90,12 @@ module.exports = {
 ```
 
 ``` shell
-$ escli _search --index myindex --size 5 --body ./query.js
+$ escl _search --index myindex --size 5 --body ./query.js
 ```
 
 ## Experimental
 A few options are still in development and its functionalities might be clunky.
-In either way those might be considered game changers of `escli` and future
+In either way those might be considered game changers of `escl` and future
 versions should contain improvements around them.
 
 ### `--edit|e`
@@ -105,13 +105,13 @@ of generating one.
 
 ``` shell
 # edit, save and close to see the results 
-$ escli _search --index myindex --type mytype -e
+$ escl _search --index myindex --type mytype -e
 
 # edit an already existing file
-$ escli _search --index myindex --body ./query.js -e
+$ escl _search --index myindex --body ./query.js -e
 
 # use a different editor on the spot
-$ EDITOR=emacs escli _search --index myindex -e
+$ EDITOR=emacs escl _search --index myindex -e
 ```
 
 ### `--watch|w`
@@ -121,5 +121,5 @@ useful when you're testing a new query.
 
 ``` shell
 # every change to query.js now will trigger the _search command
-$ escli _search --file ./query.js --watch
+$ escl _search --file ./query.js --watch
 ```

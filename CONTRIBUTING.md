@@ -8,15 +8,15 @@ Clone this package and inside of the folder, make sure to run `yarn` or `npm
 install` to install its dependencies.
 
 
-To run the cloned `escli` version refer to its full path in the command line like:
+To run the cloned `escl` version refer to its full path in the command line like:
 
 ```
-./path/to/escli/index.js _info
+./path/to/escl/index.js _info
 ```
 
 or run `yarn link` or `npm link` inside the folder to have a global esque
 feeling like:
 
 ```
-escli _info
+escl _info
 ```

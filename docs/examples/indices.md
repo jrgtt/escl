@@ -12,7 +12,7 @@ in the official elasticsearch documentation.
 Create an index in elasticsearch.
 
 ```
-$ escli _indices create --index myindex
+$ escl _indices create --index myindex
 ```
 
 Should ouput:
@@ -52,7 +52,7 @@ named `user.json`.
 ```
 
 ```
-$ escli _indices create --index user -b ./user.json
+$ escl _indices create --index user -b ./user.json
 ```
 
 ## [_indices delete](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-indices-delete)
@@ -60,7 +60,7 @@ $ escli _indices create --index user -b ./user.json
 Delete an elasticsearch index
 
 ```
-$ escli _indices delete --index myindex
+$ escl _indices delete --index myindex
 ```
 
 ## [_indices getMapping](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-indices-getmapping)
@@ -68,5 +68,5 @@ $ escli _indices delete --index myindex
 To get the associate mapping of a field
 
 ```
-$ escli _indices getMapping --index myindex
+$ escl _indices getMapping --index myindex
 ```

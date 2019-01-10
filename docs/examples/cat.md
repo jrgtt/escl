@@ -13,7 +13,7 @@ in the official elasticsearch documentation.
 List your elasticsearch indices.
 
 ```
-$ escli _cat indices
+$ escl _cat indices
 ```
 
 Will output in the following format.
@@ -30,13 +30,13 @@ Some options that can be passed along
 
 ```
 # with column names
-$ escli _cat indices -v
+$ escl _cat indices -v
 
 # sort by indices name desc
-$ escli _cat indices -s "index:desc"
+$ escl _cat indices -s "index:desc"
 
 # limit the indices returned with wildcard
-$ escli _cat indices --index "es*"
+$ escl _cat indices --index "es*"
 ```
 
 ## [_cat aliases](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-cat-aliases)
@@ -44,5 +44,5 @@ $ escli _cat indices --index "es*"
 List your aliases with column names and sorted by alias name.
 
 ```
-$ escli _cat aliases -v -s "alias"
+$ escl _cat aliases -v -s "alias"
 ```

@@ -1,4 +1,4 @@
-# escli
+# escl
 A high-level command line wrapper around the
 [elasticsearch.js](https://github.com/elastic/elasticsearch-js) client.
 
@@ -6,7 +6,7 @@ A high-level command line wrapper around the
 
 ## Installation
 ``` shell
-npm install -g escli
+npm install -g escl
 ```
 
 ## Requirements
@@ -18,7 +18,7 @@ running](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting
 following command in your terminal
 
 ``` shell
-$ escli _info
+$ escl _info
 ```
 
 should output a response in a similar format as below:
@@ -48,7 +48,7 @@ Check the [examples folder](docs/examples/) for more commands.
 ## Documentation
 - [Which commands can I execute](docs/commands.md)
 - [Passing options to commands](docs/options.md)
-- [Customize your escli with .esclirc file](docs/esclirc.md)
+- [Customize your escl with .esclrc file](docs/esclrc.md)
 
 ## Disclaimer
 This is side project I've built in my spare time with the purpose of helping me

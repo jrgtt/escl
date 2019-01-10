@@ -1,7 +1,7 @@
 # search
 
 The `_search` command gives you the ability to search in your indices, along
-with escli special options you can create powerful queries that can be easily
+with escl special options you can create powerful queries that can be easily
 tested and built with [bodybuilder](https://github.com/danpaz/bodybuilder).
 
 ## From the command line
@@ -11,7 +11,7 @@ example below elasticsearch will retrieve results from `es_user_v1` with the
 `user` type.
 
 ```
-$ escli _search --index es_user_v1 --type user
+$ escl _search --index es_user_v1 --type user
 ```
 
 The result format should be known for you.
@@ -39,19 +39,19 @@ The result format should be known for you.
 To inline a query you can do the following.
 
 ```
-$ escli _search --index es_user_v1 --type user -q "name:john"
+$ escl _search --index es_user_v1 --type user -q "name:john"
 ```
 
 Alternatively you can write the query by passing a json string to the `body` parameter.
 
 ```
-$ escli _search --index es_user_v1 --type user --body "{\"query\": {\"match\": {\"name\": \"john\"}}}"
+$ escl _search --index es_user_v1 --type user --body "{\"query\": {\"match\": {\"name\": \"john\"}}}"
 ```
 
 ## Using files
 
 As you can see above, inlining queries with the constraints of a terminal can be
-cumbersome. To simplify this process escli accepts files as parameters for you
+cumbersome. To simplify this process escl accepts files as parameters for you
 to write your queries.
 
 Given that you have the following file:
@@ -70,7 +70,7 @@ module.exports = {
 Now you can achieve the same result with:
 
 ```
-$ escli _search --index es_user_v1 --type book --body ./query.js
+$ escl _search --index es_user_v1 --type book --body ./query.js
 ```
 
 ### Why `body`?
@@ -96,7 +96,7 @@ module.exports = {
 And then called:
 
 ```
-$ escli _search --file ./query.js
+$ escl _search --file ./query.js
 ```
 
 __NOTE__: In the command above the omission of the `index` and `type` parameters. If
@@ -107,7 +107,7 @@ the same name in the file.
 ### Usage with bodybuilder
 
 [Bodybuilder](https://github.com/danpaz/bodybuilder) is an amazing library to
-write elasticsearch queries and you can leverage its power within escli by
+write elasticsearch queries and you can leverage its power within escl by
 returning a closure instead of an object.
 
 ```javascript
@@ -128,5 +128,5 @@ module.exports = (params, modules) => {
 And then called:
 
 ```
-$ escli _search --index es_user_v1 -f ./query.js
+$ escl _search --index es_user_v1 -f ./query.js
 ```

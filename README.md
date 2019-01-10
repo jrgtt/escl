@@ -2,7 +2,7 @@
 A high-level command line wrapper around the
 [elasticsearch.js](https://github.com/elastic/elasticsearch-js) client.
 
-[![asciicast](https://asciinema.org/a/YUQjR3vyDMeZnYFvX98dAknCh.png)](https://asciinema.org/a/YUQjR3vyDMeZnYFvX98dAknCh)
+[![asciicast](https://asciinema.org/a/Epz3e8LrFT5coNyCL5VkAp1db.png)](https://asciinema.org/a/Epz3e8LrFT5coNyCL5VkAp1db)
 
 ## Installation
 ``` shell

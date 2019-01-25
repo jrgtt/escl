@@ -70,7 +70,9 @@ const trigger = () => {
     steker(commands, params, programOptions)
         .then((res) => {
             logSuccess(res);
-            process.exit(0);
+            if (!programOptions.watch) {
+                process.exit(0);
+            }
         })
         .catch((e) => {
             logError(e);

@@ -77,7 +77,9 @@ const trigger = () => {
         .catch((e) => {
             logError(e);
             // exit program
-            process.exit(1);
+            if (!programOptions.watch) {
+                process.exit(1);
+            }
         });
 };
 

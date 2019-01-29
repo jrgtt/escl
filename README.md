@@ -1,4 +1,6 @@
 # escl
+![](https://img.shields.io/npm/v/escl.svg)
+
 A high-level command line wrapper around the
 [elasticsearch.js](https://github.com/elastic/elasticsearch-js) client.
 
